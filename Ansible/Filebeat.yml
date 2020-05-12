@@ -1,0 +1,25 @@
+---
+  - name: Configure DVWA VMs and Install Firebeat
+    hosts: elkservers
+    become: true
+    tasks:
+
+    - name: Download .deb file filebeat
+      command: curl -L -O https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-7.6.1-amd64.deb
+
+    - name: install .deb file
+      command: dpkg -i filebeat-7.6.1-amd64.deb
+
+    - name: drop in filebeat.yml
+      copy:
+        src: ./filebeat.yml
+        dest: sudo ssh sysadmin@52.247.117.121
+
+    - name: enable and configure system module
+      command:
+
+    - name: setup filebeat
+      command:
+
+    - name: start filebeat service
+      command:

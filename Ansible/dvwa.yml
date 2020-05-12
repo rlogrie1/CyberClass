@@ -1,0 +1,27 @@
+---
+  - name: Config Web VM with Docker
+    hosts: webservers
+    become: true
+    tasks:
+
+    - name: Install docker.io
+      apt: 
+        name: docker.io
+        state: present
+
+    - name: Install Pip
+      apt: 
+        name: python-pip
+        state: present
+
+    - name: Install Docker python module
+      pip: 
+        name: docker
+        state: present
+
+    - name: Download and lauch a docker web container
+      docker_container:
+        name: dvwa
+        image: cyberxsecurity/dvwa
+        state: started
+        published_ports: 80:80

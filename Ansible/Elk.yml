@@ -1,0 +1,31 @@
+---
+  - name: Config ELK VM with Docker
+    hosts: elkservers
+    remote_user: sysadmin
+    become: true
+    tasks:
+
+    - name: Install docker.io
+      apt:
+        force_apt_get: yes
+        name: docker.io
+        state: present
+
+    - name: Install Python - Pip
+      apt: 
+        force_apt_get: yes
+        name: python-pip
+        state: present
+
+    - name: Install Docker python module
+      pip: 
+        name: docker
+        state: present
+
+    - name: Increase Virtual Memory
+      command: sysctl -w vm.max_map_count=262144
+
+    - name: Download and launch a docker web container
+      docker_container:
+        name: elk
+        image: sebp/elk
